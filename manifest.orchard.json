@@ -1,8 +1,9 @@
 {
   "display_information": {
     "name": "Benjamin",
-    "description": "Disposition's support bot",
-    "background_color": "#c47600"
+    "description": "Disposition's helper bot!",
+    "background_color": "#c47600",
+    "long_description": "this is benji! he's a bit of a f*tass but he really enjoys his music and tries his best in life! he's a romanian underground rapper who has 2 monthly listeners on spotify!!! go join disposition to find out more!"
   },
   "features": {
     "app_home": {
@@ -46,7 +47,7 @@
   },
   "settings": {
     "event_subscriptions": {
-      "request_url": "https://benjamin.example.com/slack/events",
+      "request_url": "https://fatass-bot.k.hackclub.dev/slack/events",
       "bot_events": [
         "app_home_opened",
         "member_joined_channel",
@@ -54,12 +55,18 @@
         "message.channels",
         "message.groups",
         "message_metadata_posted"
+      ],
+      "metadata_subscriptions": [
+        {
+          "app_id": "*",
+          "event_type": "nephthys_plus_forward"
+        }
       ]
     },
     "interactivity": {
       "is_enabled": true,
-      "request_url": "https://benjamin.example.com/slack/events",
-      "message_menu_options_url": "https://benjamin.example.com/slack/events"
+      "request_url": "https://fatass-bot.k.hackclub.dev/slack/events",
+      "message_menu_options_url": "https://fatass-bot.k.hackclub.dev/slack/events"
     },
     "org_deploy_enabled": false,
     "socket_mode_enabled": false,

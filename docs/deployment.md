@@ -44,6 +44,9 @@ Note: These steps have to be done by a Workspace Admin (otherwise it will be una
 ## Setting environment variables
 
 1. Go back to the Nephthys resource you created in Coolify, and click on **Configuration** > **Environment Variables**. Click **Developer view** (production environment variables) to make it easier to add all the variables.
+   When editing an individual variable's value, enter `disposition` for `PROGRAM`
+   without surrounding quotes. Leave `FAQ_LINK` empty or unset until you have a
+   real FAQ URL; do not enter the literal text `""`.
 2. Add the required environment variables (see [.env.sample](../.env.sample) for an up-to-date list of environment variables):
 
    ```bash

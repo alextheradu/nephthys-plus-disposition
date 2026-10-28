@@ -150,7 +150,10 @@ class Environment:
         self.slack_ticket_channel = os.environ.get("SLACK_TICKET_CHANNEL", "unset")
         self.slack_bts_channel = os.environ.get("SLACK_BTS_CHANNEL", "unset")
         self.slack_maintainer_id = os.environ.get("SLACK_MAINTAINER_ID", "unset")
-        self.program = os.environ.get("PROGRAM", "disposition")
+        # Deployment dashboards may preserve quotes pasted from .env examples.
+        self.program = (
+            os.environ.get("PROGRAM", "disposition").strip().strip("\"'").strip()
+        )
         self.daily_summary = get_environ_bool("DAILY_SUMMARY", default=True)
         self.daily_summary_max_tickets = int(
             os.environ.get("DAILY_SUMMARY_MAX_TICKETS", 50)
@@ -205,8 +208,9 @@ class Environment:
             "team_channel": self.slack_bts_channel,
             "program_owner": self.slack_maintainer_id,
         }
-        if os.environ.get("FAQ_LINK"):
-            transcript_kwargs["faq_link"] = os.environ["FAQ_LINK"]
+        faq_link = os.environ.get("FAQ_LINK", "").strip().strip("\"'").strip()
+        if faq_link:
+            transcript_kwargs["faq_link"] = faq_link
         if matching_transcript:
             self.transcript = matching_transcript(**transcript_kwargs)
         else:

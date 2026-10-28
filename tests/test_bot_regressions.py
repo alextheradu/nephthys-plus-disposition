@@ -81,8 +81,27 @@ class DispositionConfigurationTests(unittest.TestCase):
         ):
             self.assertIn(f"<{url}|the Disposition FAQ>", message)
 
+    def test_quoted_environment_values_select_disposition_messages(self):
+        for program in ('"disposition"', "'disposition'", '  "Disposition"  '):
+            with self.subTest(program=program):
+                transcript = self.load_transcript(PROGRAM=program)
+                self.assertEqual(transcript.program_name, "Disposition")
+                self.assertIn("Benjamin", transcript.first_ticket_create)
+                self.assertNotIn("CHELP", transcript.first_ticket_create)
+
+    def test_quoted_faq_url_uses_a_valid_slack_link(self):
+        url = "https://disposition.example.test/faq"
+        transcript = self.load_transcript(FAQ_LINK=f'  "{url}"  ')
+        self.assertIn(f"<{url}|the Disposition FAQ>", transcript.first_ticket_create)
+
     def test_missing_faq_does_not_link_to_another_program(self):
-        for value in ({}, {"FAQ_LINK": ""}):
+        for value in (
+            {},
+            {"FAQ_LINK": ""},
+            {"FAQ_LINK": '""'},
+            {"FAQ_LINK": "''"},
+            {"FAQ_LINK": "   "},
+        ):
             transcript = self.load_transcript(**value)
             self.assertEqual(transcript.faq_link, "")
             self.assertIsNone(transcript.faq_canvas_id)

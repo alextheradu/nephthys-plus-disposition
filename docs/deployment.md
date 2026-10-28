@@ -21,7 +21,7 @@ You can also follow it to deploy Nephthys elsewhere, but you'll have to replace 
 2. Select **Private Repository (with GitHub App)** (this ensures auto-deploys work)
 3. Select the **coolify-app-server-b** server (to match the database)
 4. Use the **coolify-hackclub** GitHub app (because everyone else uses it, I guess)
-5. Select the **nephthys** repository
+5. Select the **alextheradu/nephthys-plus-disposition** repository
 6. Select **Dockerfile** as the Build Pack
 
    ![Screenshot of the Coolify UI](deployment-1.png)
@@ -37,7 +37,7 @@ Note: These steps have to be done by a Workspace Admin (otherwise it will be una
 1. Go to <https://api.slack.com/apps>
 2. Create New App > From a manifest
 3. Select YAML. Paste the [manifest.yml](../manifest.yml) file (but don't submit it yet)
-4. Update the `https://nephthys.hackclub.com/` URLs in the manifest to match the bot's domain (see above), and update the `name`, `description`, and bot user's `display_name`.
+4. Replace `https://benjamin.example.com` in the manifest with the bot's domain (see above). The app and bot names are already set to Benjamin.
 5. Review the app's permissions and authorise it
 6. Click **OAuth & Permissions** in the sidebar, and hit **Install to Hack Club**
 
@@ -65,11 +65,13 @@ Note: These steps have to be done by a Workspace Admin (otherwise it will be una
    # Copy this from the PostgreSQL resource you created earlier
    DATABASE_URL="postgres://postgres:blahblah@somewhere:5432/postgres"
    # Pick a transcript from the transcripts/ folder (your event will probably have its own)
-   PROGRAM="help"
+   PROGRAM="disposition"
    # Choose a title to be shown to helpers at the top of the App Home
-   APP_TITLE="Heidi the Assistant"
+   APP_TITLE="Benjamin"
+   # Optional: Disposition's FAQ URL
+   FAQ_LINK=""
    # Set this to the URL where the bot will be hosted
-   BASE_URL="https://summer.nephthys.hackclub.com"
+   BASE_URL="https://benjamin.example.com"
    ```
 
    `DATABASE_URL` must include the `postgresql://` (or `postgres://`) scheme.

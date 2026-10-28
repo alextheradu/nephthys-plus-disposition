@@ -103,8 +103,8 @@ async def ticket_status_pie_chart_component(tz: timezone | None = None):
     if not url:
         return Image(
             image_url=f"{env.base_url}/public/binoculars.png",
-            alt_text="Heidi looking for tickets with binoculars",
-            title="looks like heidi's scrounging around for tickets in the trash",
+            alt_text="Looking for tickets with binoculars",
+            title="No tickets to show yet",
         )
 
     return Image(

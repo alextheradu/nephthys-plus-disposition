@@ -1,7 +1,7 @@
 {
   "display_information": {
-    "name": "cont.d",
-    "description": "making support teams run smoothly (and my partner proud)",
+    "name": "Benjamin",
+    "description": "Disposition's support bot",
     "background_color": "#c47600"
   },
   "features": {
@@ -11,7 +11,7 @@
       "messages_tab_read_only_enabled": true
     },
     "bot_user": {
-      "display_name": "cont.d",
+      "display_name": "Benjamin",
       "always_online": false
     }
   },
@@ -46,7 +46,7 @@
   },
   "settings": {
     "event_subscriptions": {
-      "request_url": "https://contd-bot.k.hackclub.dev/slack/events",
+      "request_url": "https://benjamin.example.com/slack/events",
       "bot_events": [
         "app_home_opened",
         "member_joined_channel",
@@ -58,8 +58,8 @@
     },
     "interactivity": {
       "is_enabled": true,
-      "request_url": "https://contd-bot.k.hackclub.dev/slack/events",
-      "message_menu_options_url": "https://contd-bot.k.hackclub.dev/slack/events"
+      "request_url": "https://benjamin.example.com/slack/events",
+      "message_menu_options_url": "https://benjamin.example.com/slack/events"
     },
     "org_deploy_enabled": false,
     "socket_mode_enabled": false,

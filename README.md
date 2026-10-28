@@ -1,6 +1,15 @@
-# Nephthys Plus
+# Benjamin — Disposition support bot
 
-Nephthys Plus is the bot powering many support channels in the Hack Club Slack such as #help and #hackclub-ai-help! Below is a guide to set her up for developing and here's a list of some of her features :)
+Benjamin helps the Disposition team manage support threads in Slack. This bot is based on Nephthys Plus.
+
+## Customizing Benjamin
+
+- **Messages and tone:** edit [`nephthys/transcripts/transcripts/disposition.py`](nephthys/transcripts/transcripts/disposition.py) for welcome messages, ticket replies, and macro text.
+- **Production settings:** set `PROGRAM="disposition"` and `APP_TITLE="Benjamin"`, then configure the Slack tokens, channel IDs, and `SLACK_MAINTAINER_ID` using [`.env.sample`](.env.sample). Set `FAQ_LINK` to Disposition's FAQ URL; leaving it blank omits FAQ links from welcome messages.
+- **Slack name and branding:** both [`manifest.yml`](manifest.yml) and [`manifest.orchard.json`](manifest.orchard.json) name the bot Benjamin. Replace `https://benjamin.example.com` with your bot's actual public URL before importing a manifest. For an existing Slack app, update its app manifest in Slack to apply the name and URLs; `APP_TITLE` controls the App Home and Lobby title.
+- **Custom macros and tags:** helpers can manage these from the bot's App Home in Slack.
+
+See [configuration](docs/configuration.md) for all settings and [deployment](docs/deployment.md) for production setup.
 
 ## Features
 
@@ -50,7 +59,7 @@ Sometimes it’s nice to be able to do things quickly... Here’s where macros c
 - `?thread` - remove the reaction and all Nephthys+ replies to unclutter duplicates
 - `?shipwrights` - redirect to #ask-the-shipwrights
 - `?hackatime` - redirect to #hackatime-help
-- more to come?? feel free to PR your own into aoishik/nephthys-plus or tell me what you want
+- More macros can be contributed to [alextheradu/nephthys-plus-disposition](https://github.com/alextheradu/nephthys-plus-disposition).
 
 Program-specific macros can be added from the App Home (see below) without touching code.
 
@@ -102,8 +111,8 @@ For production, see [docs/deployment.md](docs/deployment.md) (Orchard).
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/aoishik/nephthys-plus
-   cd nephthys-plus
+   git clone https://github.com/alextheradu/nephthys-plus-disposition.git
+   cd nephthys-plus-disposition
    ```
 
 2. Install dependencies:

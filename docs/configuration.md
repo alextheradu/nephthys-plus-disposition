@@ -7,6 +7,23 @@ For development, copying and editing the [`.env.sample`](../.env.sample)
 file is the easiest way to get started, but for production there are some
 more options and features that you may wish to configure.
 
+## Disposition / Benjamin
+
+Set `PROGRAM="disposition"` to use Benjamin's Disposition messages and
+`APP_TITLE="Benjamin"` for the App Home and Lobby title. Edit
+[`disposition.py`](../nephthys/transcripts/transcripts/disposition.py) to change
+the welcome, resolution, reopening, feedback, and macro text.
+
+Channel IDs and the support contact come from `SLACK_HELP_CHANNEL`,
+`SLACK_TICKET_CHANNEL`, `SLACK_BTS_CHANNEL`, and `SLACK_MAINTAINER_ID`.
+Set `FAQ_LINK` to Disposition's FAQ URL. If it is blank or unset, welcome
+messages omit the FAQ link and `?faq` points to the help channel's pinned resources.
+Automatic FAQ matching remains disabled until you set `faq_canvas_id` in the transcript.
+
+The Slack app's visible name is configured in its app manifest. Both supplied
+manifests use **Benjamin**; replace `https://benjamin.example.com` with your
+production bot URL before importing them into Slack.
+
 ## Core environment variables
 
 These should always be configured.
@@ -27,6 +44,7 @@ These should always be configured.
 | `DATABASE_URL` | Required | PostgreSQL database connection URL | _N/A_ |
 | `PROGRAM` | Required | Name of a transcript (see `transcripts/` folder) the bot will use for its strings | _N/A_ |
 | `APP_TITLE` | Required | A title to be shown to helpers at the top of the App Home, and in the Lobby | _N/A_ |
+| `FAQ_LINK` | Optional | FAQ URL; Benjamin builds its welcome messages and FAQ macro from this value | _Unset_ |
 | `BASE_URL` | Required | Public HTTPS URL that the bot's web server is accessible from | _N/A_ |
 
 ## Community channel invitations

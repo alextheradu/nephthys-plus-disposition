@@ -1,8 +1,8 @@
 {
     "display_information": {
-        "name": "chu.d",
-        "description": "cont.d help & updates dispatcher",
-        "long_description": "this is such a tuff name for a bot, i know. it helps around with the help channel and dms ppl when their projects get reviewed, rejected, or require changes. also dms for fulfillment and other purposes!",
+        "name": "Benjamin",
+        "description": "Disposition's support bot",
+        "long_description": "Benjamin helps the Disposition team manage support threads, assign tickets, share FAQ resources, and keep track of questions that need a reply.",
         "background_color": "#141414"
     },
     "features": {
@@ -13,7 +13,7 @@
             "agent_tasks_enabled": true
         },
         "bot_user": {
-            "display_name": "cont.d",
+            "display_name": "Benjamin",
             "always_online": true
         },
         "shortcuts": [
@@ -21,7 +21,7 @@
                 "name": "Delete message",
                 "type": "message",
                 "callback_id": "delete_bot_message",
-                "description": "Delete your own message or a message sent by cont.d"
+                "description": "Delete your own message or a message sent by Benjamin"
             }
         ]
     },
@@ -65,7 +65,7 @@
                 "message.im",
                 "message_metadata_posted"
             ],
-            "request_url": "https://contd-bot.k.hackclub.dev/slack/events",
+            "request_url": "https://benjamin.example.com/slack/events",
             "metadata_subscriptions": [
                 {
                     "app_id": "*",
@@ -75,8 +75,8 @@
         },
         "interactivity": {
             "is_enabled": true,
-            "message_menu_options_url": "https://contd-bot.k.hackclub.dev/slack/events",
-            "request_url": "https://contd-bot.k.hackclub.dev/slack/events"
+            "message_menu_options_url": "https://benjamin.example.com/slack/events",
+            "request_url": "https://benjamin.example.com/slack/events"
         },
         "org_deploy_enabled": false,
         "socket_mode_enabled": false,

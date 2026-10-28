@@ -15,7 +15,7 @@
 
 <body>
   {% if user %}
-  <h1>Heidi's lobby ({{ app_title }})</h1>
+  <h1>{{ app_title }}'s lobby</h1>
   <p>welcome {{ user.slack_id }} :)</p>
   <p>here are some things you can do! </p>
   <ul>
@@ -33,7 +33,7 @@
     </ul>
   </details>
   {% else %}
-  <p><em>you step into Heidi's lobby.</em></p>
+  <p><em>you step into {{ app_title }}'s lobby.</em></p>
 
   <p>hi! uh, before you go any further, could I ask you to <a href="/lobby/login">log in with Hack Club Auth</a>?</p>
   {% endif %}

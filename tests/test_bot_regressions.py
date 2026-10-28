@@ -48,6 +48,49 @@ def slack_error(code, headers=None):
     )
 
 
+class DispositionConfigurationTests(unittest.TestCase):
+    def load_transcript(self, **overrides):
+        with patch.dict(
+            os.environ,
+            {**TEST_ENV, "PROGRAM": "disposition", **overrides},
+            clear=True,
+        ):
+            return config.Environment().transcript
+
+    def test_production_channels_and_contact_are_used_in_messages(self):
+        transcript = self.load_transcript()
+        self.assertEqual(transcript.program_name, "Disposition")
+        self.assertIn("Benjamin", transcript.first_ticket_create)
+        self.assertIn("Benjamin", transcript.ticket_create)
+        self.assertIn("<#CHELP>", transcript.ticket_resolve)
+        self.assertIn("<#CHELP>", transcript.ticket_resolve_stale)
+        self.assertIn("<@UOWNER>", transcript.not_allowed_channel)
+        self.assertIn("<@UHELPER>", transcript.ticket_resolve.format(user_id="UHELPER"))
+        self.assertIn(
+            "<@UHELPER>",
+            transcript.ticket_reopen.format(helper_slack_id="UHELPER"),
+        )
+
+    def test_faq_links_use_production_configuration(self):
+        url = "https://disposition.example.test/faq"
+        transcript = self.load_transcript(FAQ_LINK=url)
+        for message in (
+            transcript.first_ticket_create,
+            transcript.ticket_create,
+            transcript.faq_macro,
+        ):
+            self.assertIn(f"<{url}|the Disposition FAQ>", message)
+
+    def test_missing_faq_does_not_link_to_another_program(self):
+        for value in ({}, {"FAQ_LINK": ""}):
+            transcript = self.load_transcript(**value)
+            self.assertEqual(transcript.faq_link, "")
+            self.assertIsNone(transcript.faq_canvas_id)
+            self.assertNotIn("FAQ", transcript.first_ticket_create)
+            self.assertNotIn("FAQ", transcript.ticket_create)
+            self.assertIn("<#CHELP>", transcript.faq_macro)
+
+
 class CommunityChannelTests(unittest.IsolatedAsyncioTestCase):
     def setUp(self):
         self.client = AsyncMock(spec=AsyncWebClient)

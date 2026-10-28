@@ -150,14 +150,14 @@ class Environment:
         self.slack_ticket_channel = os.environ.get("SLACK_TICKET_CHANNEL", "unset")
         self.slack_bts_channel = os.environ.get("SLACK_BTS_CHANNEL", "unset")
         self.slack_maintainer_id = os.environ.get("SLACK_MAINTAINER_ID", "unset")
-        self.program = os.environ.get("PROGRAM", "summer_of_making")
+        self.program = os.environ.get("PROGRAM", "disposition")
         self.daily_summary = get_environ_bool("DAILY_SUMMARY", default=True)
         self.daily_summary_max_tickets = int(
             os.environ.get("DAILY_SUMMARY_MAX_TICKETS", 50)
         )
         self.credit_non_helpers = get_environ_bool("CREDIT_NON_HELPERS", default=True)
         self.enable_feedback = get_environ_bool("ENABLE_FEEDBACK", default=False)
-        self.app_title = os.environ.get("APP_TITLE", "helper heidi")
+        self.app_title = os.environ.get("APP_TITLE", "Benjamin")
         self.hca = create_hca_config(self.environment)
 
         self.port = int(os.environ.get("PORT", 3000))
@@ -191,26 +191,26 @@ class Environment:
         self.session: ClientSession
         matching_transcript = next(
             (
-                inst
+                program_cls
                 for program_cls in transcripts
-                if (inst := program_cls()).program_snake_case
+                if program_cls().program_snake_case
                 == self.program.lower().replace(" ", "_")
             ),
             None,
         )
 
+        transcript_kwargs = {
+            "help_channel": self.slack_help_channel,
+            "ticket_channel": self.slack_ticket_channel,
+            "team_channel": self.slack_bts_channel,
+            "program_owner": self.slack_maintainer_id,
+        }
+        if os.environ.get("FAQ_LINK"):
+            transcript_kwargs["faq_link"] = os.environ["FAQ_LINK"]
         if matching_transcript:
-            self.transcript = matching_transcript
+            self.transcript = matching_transcript(**transcript_kwargs)
         else:
-            transcript_kwargs = {
-                "program_name": self.program,
-                "help_channel": self.slack_help_channel,
-                "ticket_channel": self.slack_ticket_channel,
-                "team_channel": self.slack_bts_channel,
-                "program_owner": self.slack_maintainer_id,
-            }
-            if os.environ.get("FAQ_LINK"):
-                transcript_kwargs["faq_link"] = os.environ["FAQ_LINK"]
+            transcript_kwargs["program_name"] = self.program
             self.transcript = Transcript(**transcript_kwargs)
 
         self.slack_client = AsyncWebClient(token=self.slack_bot_token)
